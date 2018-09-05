@@ -1,14 +1,21 @@
 import React from 'react';
 import {Mutation} from 'react-apollo';
 import { SIGNUP_USER } from '../../queries';
+import { isIdValue } from '../../../node_modules/apollo-utilities';
+
+const initialState = {
+    username: "",
+    email: "",
+    password: "",
+    passwordConfimation: "",
+};
 
 class SignUp extends React.Component {
 
-    state= {
-        username: "",
-        email: "",
-        password: "",
-        passwordConfimation: "",
+    state= { ...initialState } ;
+
+    clearState = () => {
+        this.setState({...initialState});
     }
 
     handleChange = event => {
@@ -21,7 +28,16 @@ class SignUp extends React.Component {
 
         signupUser().then(data => {
             console.log(data) ;
+            this.clearState();
         })
+    }
+
+    validateForm = () => {
+        const { username, email, password, passwordConfimation } = this.state ;
+
+        const isInvalid = !username || !email || !password || password != passwordConfimation ;
+
+        return isInvalid ;
     }
 
     render() {
@@ -40,8 +56,10 @@ class SignUp extends React.Component {
                                 <input value={password} type="password" name="password" placeholder="Password" onChange={this.handleChange}/>
                                 <input value={passwordConfimation} type="password" name="passwordConfimation" placeholder="Confirm password" onChange={this.handleChange}/>
 
-                                <button type="submit" className="button-primary">Submit</button>
-
+                                <button type="submit" 
+                                disabled={ loading || this.validateForm() }
+                                className="button-primary">Submit</button>
+                                {error && <p>{error.message}</p>}
                             </form>
                         ) 
                     }
