@@ -1,7 +1,6 @@
 import React from 'react';
 import {Mutation} from 'react-apollo';
 import { SIGNUP_USER } from '../../queries';
-import { isIdValue } from '../../../node_modules/apollo-utilities';
 
 const initialState = {
     username: "",
@@ -35,7 +34,7 @@ class SignUp extends React.Component {
     validateForm = () => {
         const { username, email, password, passwordConfimation } = this.state ;
 
-        const isInvalid = !username || !email || !password || password != passwordConfimation ;
+        const isInvalid = !username || !email || !password || password !== passwordConfimation ;
 
         return isInvalid ;
     }
