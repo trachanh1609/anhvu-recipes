@@ -24,7 +24,6 @@ class SignIn extends React.Component {
         event.preventDefault();
 
         signinUser().then( ( {data} ) => {
-            console.log(data) ;
             localStorage.setItem('token', data.signinUser.token);
             this.clearState();
         })

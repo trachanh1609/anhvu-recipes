@@ -10,6 +10,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 
 import SignIn from './components/Auth/SignIn';
 import SignUp from './components/Auth/SignUp';
+import withSession from './components/withSession';
 
 
 const client = new ApolloClient({
@@ -44,9 +45,11 @@ const Root = () => (
     </Router>
 )
 
+const RootWithSession = withSession(Root) ;
+
 ReactDOM.render(
     <ApolloProvider client={client}>
-        <Root />
+        <RootWithSession />
     </ApolloProvider>
 , document.getElementById('root'));
 registerServiceWorker();
