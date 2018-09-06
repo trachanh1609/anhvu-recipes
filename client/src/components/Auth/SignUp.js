@@ -36,7 +36,6 @@ class SignUp extends React.Component {
         const isInvalid = !username || !email || !password || password !== passwordConfimation ;
 
         return isInvalid ;
-        
     }
 
     render() {
