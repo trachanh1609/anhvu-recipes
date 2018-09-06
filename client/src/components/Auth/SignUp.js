@@ -34,8 +34,9 @@ class SignUp extends React.Component {
     validateForm = () => {
         const { username, email, password, passwordConfimation } = this.state ;
         const isInvalid = !username || !email || !password || password !== passwordConfimation ;
-        
+
         return isInvalid ;
+        
     }
 
     render() {
