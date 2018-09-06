@@ -1,4 +1,6 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
+
 import {Mutation} from 'react-apollo';
 import { SIGNIN_USER } from '../../queries';
 
@@ -23,9 +25,13 @@ class SignIn extends React.Component {
     handleSubmit = (event, signinUser ) => {
         event.preventDefault();
 
-        signinUser().then( ( {data} ) => {
+        signinUser().then( async ( {data} ) => {
             localStorage.setItem('token', data.signinUser.token);
+
+            await this.props.refetch();
             this.clearState();
+
+            this.props.history.push('/');
         })
     }
 
@@ -67,4 +73,4 @@ class SignIn extends React.Component {
     }
 }
 
-export default SignIn;
+export default withRouter(SignIn);
